@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GPT娘 · Pet 动画展示</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3effa;color:#30263e;font:16px/1.7 system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:24px}main{max-width:760px;width:100%;background:#fff;border:1px solid #e4dceb;border-radius:28px;padding:32px;box-shadow:0 24px 70px #69537716}h1{margin:0;font-size:30px}p{color:#73647f;margin:8px 0 22px}.stage{display:grid;place-items:center;background:linear-gradient(150deg,#f9f6ff,#eee6fa);border-radius:24px;min-height:300px;margin-bottom:20px}canvas{width:288px;height:312px;max-width:100%;object-fit:contain}fieldset{border:0;padding:0;margin:0 0 18px}legend{font-size:13px;font-weight:700;color:#84738e;margin-bottom:10px}button{font:inherit;cursor:pointer;border:1px solid #e3daeb;background:#faf7fe;color:#584269;border-radius:10px;padding:7px 13px;margin:0 5px 8px 0}button[aria-pressed=true]{background:#75518f;color:white;border-color:#75518f}a{color:#75518f}.controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:14px}.controls button{margin:0}.note{font-size:12px;margin:24px 0 0}#status{font-size:13px;color:#796485}
+</style>
+<main>
+<h1>GPT娘</h1><p>白发紫瞳的小龙娘，陪你思考与检查成果。</p>
+<div class="stage"><canvas id="pet" width="192" height="208" aria-label="GPT娘动画"></canvas></div>
+<fieldset><legend>动作</legend><div id="states"></div></fieldset>
+<fieldset><legend>视线朝向 · 顺时针</legend><div id="looks"></div></fieldset>
+<div class="controls"><button id="pause" type="button">暂停动画</button><label>速度 <input id="speed" type="range" min="60" max="320" value="160" aria-label="每帧毫秒"></label><span id="status" role="status">正在加载原始动画…</span></div>
+<p class="note">原图为 Pet v2：1536 × 2288，73 帧。角色参考 <a href="https://github.com/T7moris/GPT-Niang">T7moris/GPT-Niang</a>。非商业个人展示；素材来源和使用范围见 README 与 CHARACTER-NOTICE.txt。</p>
+</main>
+<script>
+const canvas=document.getElementById('pet'),ctx=canvas.getContext('2d'),image=new Image();
+const states=[['待机',0,6],['向右移动',1,8],['向左移动',2,8],['挥手',3,4],['跳跃',4,5],['失败',5,8],['等待',6,6],['思考',7,6],['检查',8,6]];
+let row=0,count=6,frame=0,last=0,paused=false,look=false,loaded=false,label='待机';
+function selected(button){document.querySelectorAll('[aria-pressed]').forEach(b=>b.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true')}
+states.forEach(([name,r,n],i)=>{const b=document.createElement('button');b.type='button';b.textContent=name;b.setAttribute('aria-pressed',i===0?'true':'false');b.onclick=()=>{row=r;count=n;frame=0;look=false;label=name;selected(b);draw()};document.getElementById('states').append(b)});
+for(let i=0;i<16;i++){const b=document.createElement('button');b.type='button';b.textContent=`${i*22.5}°`;b.setAttribute('aria-pressed','false');b.onclick=()=>{row=9+Math.floor(i/8);frame=i%8;look=true;label=`朝向 ${i*22.5}°`;selected(b);draw()};document.getElementById('looks').append(b)}
+function draw(){if(!loaded)return;ctx.clearRect(0,0,192,208);ctx.drawImage(image,frame*192,row*208,192,208,0,0,192,208);document.getElementById('status').textContent=look?label:`${label} · 第 ${frame+1}/${count} 帧`}
+function tick(t){if(loaded&&!paused&&!look&&t-last>=Number(document.getElementById('speed').value)){frame=(frame+1)%count;last=t;draw()}requestAnimationFrame(tick)}
+document.getElementById('pause').onclick=()=>{paused=!paused;document.getElementById('pause').textContent=paused?'继续动画':'暂停动画'};
+image.onload=()=>{loaded=true;draw();requestAnimationFrame(tick)};image.onerror=()=>{document.getElementById('status').textContent='加载失败：请保持 spritesheet.png 与本页在同一文件夹。'};image.src='spritesheet.png';
+</script>
+</html>

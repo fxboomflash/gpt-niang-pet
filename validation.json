@@ -1,0 +1,27 @@
+{
+  "valid": true,
+  "file_size_bytes": 3455696,
+  "mime_type": "image/png",
+  "width": 1536,
+  "height": 2288,
+  "sprite_version": 2,
+  "cell_width": 192,
+  "cell_height": 208,
+  "frames_per_row": [
+    6,
+    8,
+    8,
+    4,
+    5,
+    8,
+    6,
+    6,
+    6,
+    8,
+    8
+  ],
+  "errors": [],
+  "validator": "ChatGPT Pets validate_pet_spritesheet",
+  "validation_date": "2026-10-29",
+  "scope": "Structural validation of the existing exported sheet; no artwork regeneration or semantic re-certification."
+}

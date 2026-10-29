@@ -1,0 +1,89 @@
+{
+  "name": "GPT娘",
+  "description": "白发紫瞳的小龙娘，安静陪你写代码、思考和检查成果。基于 T7moris/GPT-Niang 角色。",
+  "package_version": "1.0.0",
+  "sprite_version": 2,
+  "spritesheet": "spritesheet.png",
+  "width": 1536,
+  "height": 2288,
+  "cell_width": 192,
+  "cell_height": 208,
+  "columns": 8,
+  "rows": 11,
+  "required_frames": 73,
+  "states": [
+    {
+      "name": "idle",
+      "row": 0,
+      "frames": 6
+    },
+    {
+      "name": "running-right",
+      "row": 1,
+      "frames": 8
+    },
+    {
+      "name": "running-left",
+      "row": 2,
+      "frames": 8
+    },
+    {
+      "name": "waving",
+      "row": 3,
+      "frames": 4
+    },
+    {
+      "name": "jumping",
+      "row": 4,
+      "frames": 5
+    },
+    {
+      "name": "failed",
+      "row": 5,
+      "frames": 8
+    },
+    {
+      "name": "waiting",
+      "row": 6,
+      "frames": 6
+    },
+    {
+      "name": "running",
+      "row": 7,
+      "frames": 6
+    },
+    {
+      "name": "review",
+      "row": 8,
+      "frames": 6
+    }
+  ],
+  "look": {
+    "rows": [
+      9,
+      10
+    ],
+    "frames": 16,
+    "degrees_clockwise_from_up": [
+      0.0,
+      22.5,
+      45.0,
+      67.5,
+      90.0,
+      112.5,
+      135.0,
+      157.5,
+      180.0,
+      202.5,
+      225.0,
+      247.5,
+      270.0,
+      292.5,
+      315.0,
+      337.5
+    ]
+  },
+  "source_project": "https://github.com/T7moris/GPT-Niang",
+  "export_date": "2026-10-29",
+  "notes": "Asset metadata, not a ChatGPT account restore token or a desktop installer. Preview timings are display choices."
+}
